@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/Almarai-Bold.ttf",
+      "sha1": "29da0cb13a3569e44d983a5497f05d637f700a52"
+    },
+    {
+      "path": "assets/fonts/Almarai-ExtraBold.ttf",
+      "sha1": "1027eff77cef57a47cbb4842a64b47fbc4c30ba4"
+    },
+    {
+      "path": "assets/fonts/Almarai-Light.ttf",
+      "sha1": "8b2bfee8a592c8afd1616ffd7f552fe7050117dd"
+    },
+    {
+      "path": "assets/fonts/Almarai-Regular.ttf",
+      "sha1": "70717b2433c393140de1608f1b1dc50773342d9e"
+    },
+    {
+      "path": "assets/fonts/fa-brands-400.ttf",
+      "sha1": "61d77b2a1c90dfd01f9e2d92853007e7a90de937"
+    },
+    {
+      "path": "assets/fonts/fa-regular-400.ttf",
+      "sha1": "fe57b173677888afa2a732d61254bbb04756bc3b"
+    },
+    {
+      "path": "assets/fonts/fa-solid-900.ttf",
+      "sha1": "9f69dff7939c697a9445931b919ed09ac3febc9b"
+    },
+    {
+      "path": "assets/fonts/OFL.txt",
+      "sha1": "35623c26914cd945ff87d2504111a1e138491ac9"
+    }
+  ]
+}

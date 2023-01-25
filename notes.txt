@@ -1,0 +1,18 @@
+questions to ask bassam :
+
+the login screen:
+1- how to center an item within a container (flexDirections:'row')(container has more than one childe
+
+2- is it possible to rtl only some components 
+
+3- homeScreen =>
+    input component is overlapped by the scrollView element even tho
+    they are in the scope , which means an element by element (flexDirections='column')
+
+
+    redux=>
+        should everything tha is mutable be in state or is it enough to be put in array as a data
+        since it's probably not used in other screens ........
+
+    redux important question => does attributes of the same state automatically update or must be dispatched again
+
