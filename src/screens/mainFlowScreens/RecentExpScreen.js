@@ -1,58 +1,34 @@
 import React from "react";
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { FloatingAction } from "react-native-floating-action";
-import ActionButton from 'react-native-action-button';
+import AddButton from "../../components/AddButton";
+import Layout from "../../components/layout";
+import { Sum } from "../../components/Sum";
+import { ExpList } from "../../components/ExpList";
 
-
-
-
+import { useSelector } from "react-redux";
 
 
 const RecentExpScreen = ({ navigation }) => {
+
+    const expenses = [...useSelector((state) => state?.ExpScreen?.expenses)].reverse()
+    // const receentExpenses = expenses.filter((expense) => {
+    //     const today = new Date()
+    //     // const 7daysAgo= getDateMinus
+    // })
+    
+
     return <>
-        <View style={{ flex: 1, backgroundColor: '#1b1c1d' }}>
-            <Text style={styles.title}>RecentExpScreen</Text>
-            {/* <View style={styles.floatButtonContainer}> */}
-            {/* <ActionButton
-                style={styles.actionButton}
-                buttonColor="black"
-                elevation={5}
-                onPress={() => { navigation.navigate('add') }}
-            /> */}
-            {/* </View> */}
-
-
-        </View>
+        <Layout>
+            <Sum title={'Last 7 Days'} />
+            <ExpList />
+            <AddButton navigation={navigation} />
+        </Layout>
     </>
 };
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
+
 
 const styles = StyleSheet.create({
-    floatButtonContainer: {
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // width: 80,
-        // height: 80,
-        // borderRadius: 100,
-        // backgroundColor: 'red',
-        // padding: 10,
-        // position: 'absolute',
-        // top: 400,
-        // left: width / 2 - 40
-    },
-    actionButton: {
-        // position: 'absolute',
-        alignSelf: 'center',
-        right: width / 2 - 60
-    },
-    title: {
-        color: 'white',
-        textAlign: 'center',
-        fontSize:20
-    }
-
 
 });
 

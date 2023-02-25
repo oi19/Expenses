@@ -1,56 +1,71 @@
-import React from "react";
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { FloatingAction } from "react-native-floating-action";
-import ActionButton from 'react-native-action-button';
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Dimensions, ActivityIndicator } from 'react-native';
+import { scale, verticalScale, moderateScale } from "../../helper/scaling";
+import AddButton from '../../components/AddButton'
+import Layout from "../../components/layout";
+import { ExpList } from "../../components/ExpList";
+import { useSelector, useDispatch } from "react-redux";
+import { Sum } from "../../components/Sum";
+import { changeExpProp, getExpensesList } from "../../redux/actions/ExpScreenAction";
+import { useIsFocused } from "@react-navigation/native";
 
 
-
-
+const sum = (accumulator, currentValue) => {
+    return accumulator + parseInt(currentValue.expenseAmount)
+}
 
 
 const ExpScreen = ({ navigation }) => {
+
+    const dispatch = useDispatch()
+    const isFocused = useIsFocused()
+    useEffect(() => {
+        isFocused && changeExpProp('pageLoading', false)
+        dispatch(getExpensesList())
+
+    }, [isFocused])
+
+    const pageLoading = useSelector((state) => state?.ExpScreen?.pageLoading)
+    const pageError = useSelector((state) => state?.ExpScreen?.pageError)
+    const expenses = [...useSelector((state) => state?.ExpScreen?.expenses)].reverse()
+    const total = expenses.reduce(sum, 0)
+
     return <>
-        <View style={{ flex: 1, backgroundColor: '#1b1c1d' }}>
-            <Text>ExpScreen</Text>
-            {/* <View style={styles.floatButtonContainer}> */}
-            {/* <ActionButton
-                    style={styles.actionButton}
-                    buttonColor="black"
-                    elevation={5}
-                    onPress={()=>{navigation.navigate('add')}}
-                /> */}
-            {/* </View> */}
+        <Layout>
 
+            {
+                pageLoading ?
+                    <View style={styles.failedHandlerContainer}>
+                        <ActivityIndicator color={'white'} size={'large'} />
+                    </View>
+                    : pageError ?
+                        <View style={styles.failedHandlerContainer}>
+                            <Text style={styles.pageErrorText}>No Result</Text>
+                        </View>
+                        :
+                        <View style={{ flex: 1 }}>
+                            <Sum total={total} title={'Total'} />
+                            <ExpList data={expenses} />
+                        </View>
 
-        </View>
+            }
+            <AddButton navigation={navigation} />
+        </Layout>
     </>
 };
 
-const width = Dimensions.get('window').width
-const height = Dimensions.get('window').height
+
 
 const styles = StyleSheet.create({
-    floatButtonContainer: {
+    failedHandlerContainer: {
+        flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        width: 80,
-        height: 80,
-        borderRadius: 100,
-        backgroundColor: 'red',
-        padding: 10,
-        // position: 'absolute',
-        top: 400,
-        left: width / 2 - 40
+        alignItems: 'center'
     },
-    actionButton: {
-        position: 'absolute',
-        alignSelf: 'center',
-        right: width / 2 - 60,
-        bottom: -50
-
-
+    pageErrorText: {
+        color: 'white',
+        fontSize: moderateScale(20)
     }
-
 
 });
 
