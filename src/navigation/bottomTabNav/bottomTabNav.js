@@ -1,15 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { Text, Pressable, Image, View, StyleSheet, TouchableOpacity, TabBar, Animated, Dimensions } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { scale, verticalScale } from '../../helper/scaling';
 
 
 import ExpScreen from '../../screens/mainFlowScreens/ExpScreen';
 import RecentExpScreen from '../../screens/mainFlowScreens/RecentExpScreen';
-import EmptyScreen from '../../screens/mainFlowScreens/EmptyScreen';
-import AddExpScreen from '../../screens/mainFlowScreens/AddExpScreen'
-import EditExpScreen from '../../screens/mainFlowScreens/EditExpScreen'
-
-import { scale, verticalScale } from '../../helper/scaling';
 
 
 const tabBarIcon = (label, source, focused) => {
@@ -25,17 +21,13 @@ const tabBarIcon = (label, source, focused) => {
 
 const routes = [
     { key: 'expenses', name: 'expenses', label: 'Expenses', component: ExpScreen, tabBarIcon: ({ focused }) => tabBarIcon('Expenses', require(`../../assets/photos/money.jpg`), focused) },
-    { key: 'emptyScreen', name: 'emptyScreen', label: 'EmptyScreen', component: EmptyScreen, tabBarIcon: ({ focused }) => tabBarIcon('Empty', require(`../../assets/photos/saerchIcon.png`), focused) },
     { key: 'recentExp', name: 'recentExp', label: 'Recent', component: RecentExpScreen, tabBarIcon: ({ focused }) => tabBarIcon('Receent', require('../../assets/photos/Group37.png'), focused) },
-    { key: 'add', name: 'add', label: 'Add', component: AddExpScreen, tabBarIcon: ({ focused }) => tabBarIcon('Add', require(`../../assets/photos/Group37.png`), focused) },
-    { key: 'edit', name: 'edit', label: 'Edit', component: EditExpScreen, tabBarIcon: ({ focused }) => tabBarIcon('Edit', require(`../../assets/photos/Group37.png`), focused) }
 ]
 
 
 const BottomTabNav = ({ navigation }) => {
     const Tab = createBottomTabNavigator();
-    const state = navigation.getState().routes[1].state;
-    console.log(state)
+    const state = navigation.getState().routes[0].state;
     return (
         <Tab.Navigator initialRouteName='expenses'
             screenOptions={{
@@ -53,7 +45,7 @@ const BottomTabNav = ({ navigation }) => {
                         options={{
                             tabBarItemStyle: [styles.tabBarItemStyle, state?.index === index || (!state && index === 0) ? styles.selectedTabBarItemStyle : null],
                             tabBarBadge: route.name === 'expenses' ? 3 : null,
-                            tabBarBadgeStyle: state?.index === index ? styles.selectedTabBarBadgeStyle : styles.unselectedTabBarBadgeStyle,
+                            tabBarBadgeStyle: state?.index === index || !state ? styles.selectedTabBarBadgeStyle : styles.unselectedTabBarBadgeStyle,
                             tabBarShowLabel: false,
                             tabBarIcon: route.tabBarIcon,
                             title: route.label
@@ -81,7 +73,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: scale(10),
         alignItems: 'center',
         elevation: 10,
-        borderTopWidth:0
+        borderTopWidth: 0
     },
     actionButtonContainer: {
         justifyContent: 'center',
@@ -98,33 +90,29 @@ const styles = StyleSheet.create({
         width: scale(50),
         height: scale(50),
         padding: 5,
+        opacity: .5
 
     },
     selectedActionButton: {
         borderWidth: .5,
         borderColor: '#2b2d2f',
+        opacity: 1
     },
     selectedImage: {
         resizeMode: "contain",
-        width: 20,
-        height: 20,
+        width: scale(20),
+        height: scale(20),
     },
     unSelectedImage: {
         resizeMode: "contain",
-        width: 15,
-        height: 15
+        width: scale(15),
+        height: scale(15)
     },
     tabBarItemStyle: {
         borderRadius: 70,
         width: scale(60),
         height: scale(60),
         bottom: verticalScale(2),
-        marginHorizontal: scale(4)
-    },
-    selectedTabBarItemStyle: {
-        bottom: verticalScale(45),
-        backgroundColor: '#1b1c1d',
-        opacity: 1
     },
     selectedTabBarLabelStyle: {
         fontSize: 7,
@@ -143,7 +131,14 @@ const styles = StyleSheet.create({
         lineHeight: verticalScale(13),
         fontSize: 8
     },
-    selectedTabBarBadgeStyle: {},
+    selectedTabBarBadgeStyle: {
+        // maxWidth: scale(18),
+        // maxHeight: verticalScale(18),
+        // justifyContent: 'center',
+        // alignItems: 'center',
+        // lineHeight: verticalScale(3),
+        // fontSize: 8
+    },
     tabBarIconContainer: {
         justifyContent: 'center',
         alignItems: 'center',

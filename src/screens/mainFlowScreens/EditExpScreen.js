@@ -1,13 +1,14 @@
 import React from "react";
 import { View, Text, StyleSheet } from 'react-native';
+import Layout from "../../components/layout";
 
 
 
 const EditExpScreen = () => {
     return <>
-        <View style={{ flex: 1, backgroundColor: '#1b1c1d' }}>
-            <Text>EditExpScreen</Text>
-        </View>
+        <Layout>
+            
+        </Layout>
     </>
 };
 

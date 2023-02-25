@@ -1,5 +1,6 @@
-import { Dimensions } from 'react-native';
+import { Dimensions, useWindowDimensions } from 'react-native';
 export const { width, height } = Dimensions.get('window');
+// export const { width, height } = Dimensions.get('window');
 export const guidelineBaseWidth = 360;
 export const guidelineBaseHeight = 670;
 //for horizontal scale
